@@ -1,5 +1,6 @@
 import asyncpg
 import os
+from typing import Optional
 
 from dotenv import load_dotenv
 
@@ -26,7 +27,7 @@ async def init_db():
     """)
     await conn.close()
 
-async def insert_event(user_id: int, title: str, start_ts: str, end_ts: str | None):
+async def insert_event(user_id: int, title: str, start_ts: str, end_ts: Optional[str]):
     conn = await asyncpg.connect(**DB_CONFIG)
     await conn.execute("""
     INSERT INTO events (user_id, title, start_ts, end_ts)
